@@ -53,8 +53,6 @@ func BundlerWithConfig(cfg BundlerConfig) echo.MiddlewareFunc {
 
 	filesMap := outputFilesToMap(result.OutputFiles)
 
-	fmt.Println(filesMap)
-
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 
