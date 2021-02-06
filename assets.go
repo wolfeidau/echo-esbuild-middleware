@@ -2,6 +2,7 @@ package assets
 
 import (
 	"fmt"
+	"net/http"
 	"path"
 	"time"
 
@@ -13,7 +14,7 @@ import (
 type FuncBuildResult func(result api.BuildResult, timeTaken time.Duration)
 
 // FuncRequest callback for each request made which returns an asset
-type FuncRequest func(path string, contentLength, code int, timeTaken time.Duration)
+type FuncRequest func(req *http.Request, contentLength, code int, timeTaken time.Duration)
 
 // BundlerConfig asset bundler configuration which provides the bare minimum to keep things simple
 type BundlerConfig struct {
@@ -71,7 +72,7 @@ func BundlerWithConfig(cfg BundlerConfig) echo.MiddlewareFunc {
 			err := c.Blob(200, "application/javascript", contents)
 
 			if cfg.OnRequest != nil {
-				cfg.OnRequest(c.Path(), len(contents), 200, time.Since(start))
+				cfg.OnRequest(c.Request(), len(contents), 200, time.Since(start))
 			}
 
 			return err
