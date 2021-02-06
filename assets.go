@@ -12,6 +12,9 @@ import (
 // FuncBuildResult callback used to return result when bundling
 type FuncBuildResult func(result api.BuildResult, timeTaken time.Duration)
 
+// FuncRequest callback for each request made which returns an asset
+type FuncRequest func(path string, contentLength, code int, timeTaken time.Duration)
+
 // BundlerConfig asset bundler configuration which provides the bare minimum to keep things simple
 type BundlerConfig struct {
 	EntryPoints     []string
@@ -19,7 +22,8 @@ type BundlerConfig struct {
 	InlineSourcemap bool
 	Define          map[string]string
 	// This will be invoked for a build and can be used to check errors/warnings
-	OnBuild FuncBuildResult
+	OnBuild   FuncBuildResult
+	OnRequest FuncRequest
 }
 
 func (bc BundlerConfig) sourcemap() api.SourceMap {
@@ -65,7 +69,14 @@ func BundlerWithConfig(cfg BundlerConfig) echo.MiddlewareFunc {
 				return next(c)
 			}
 
-			return c.Blob(200, "application/javascript", contents)
+			start = time.Now()
+			err := c.Blob(200, "application/javascript", contents)
+
+			if cfg.OnRequest != nil {
+				cfg.OnRequest(c.Path(), len(contents), 200, time.Since(start))
+			}
+
+			return err
 		}
 	}
 }

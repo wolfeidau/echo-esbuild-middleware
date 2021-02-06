@@ -28,6 +28,13 @@ func TestMiddleware(t *testing.T) {
 		Define: map[string]string{
 			"process.env.NODE_ENV": `"production"`,
 		},
+		OnBuild: func(result api.BuildResult, timeTaken time.Duration) {
+			assert.Len(result.Errors, 0)
+		},
+		OnRequest: func(path string, contentLength, code int, timeTaken time.Duration) {
+			assert.Equal(200, code)
+			assert.Equal("/bundle.js", path)
+		},
 	})(func(c echo.Context) error {
 		return c.NoContent(404)
 	})

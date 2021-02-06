@@ -8,12 +8,9 @@ This module provides an [echo](https://echo.labstack.com/) middleware which auto
 
 # Why?
 
-I am currently using to enable me to add typescript based stimulus controllers to a website while:
+I am currently using to enable me to add typescript based stimulus controllers to a website while keeping the bundling process simple and integrated into the development lifecycle of the service so I can "watch" and rebuild everything.
 
-1. A really fast bundler in esbuild, which provides a Go API.
-2. Keeping the bundling process simple and integrated into the development lifecycle of the service so I can "watch" and rebuild everything.
-
-Given the lean single NPM module provided by esbuild my `node_modules` folder is also very lean, which means less security issues.
+Given the single NPM module provided by esbuild my `node_modules` folder is also lean, which means less security issues.
 
 # Usage
 
@@ -37,6 +34,9 @@ The following example will provide `bundle.js` via a script tag like `<script sr
 				}).Msg("failed to build assets")
 			}
 		},
+        OnRequest: func(path string, contentLength, code int, timeTaken time.Duration) {
+            log.Info().Str("path", path).Int("code", code).Duration("timeTaken", timeTaken).Msg("asset served")
+        },
 	}))
 ```
 
