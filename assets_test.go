@@ -31,9 +31,9 @@ func TestMiddleware(t *testing.T) {
 		OnBuild: func(result api.BuildResult, timeTaken time.Duration) {
 			assert.Len(result.Errors, 0)
 		},
-		OnRequest: func(path string, contentLength, code int, timeTaken time.Duration) {
+		OnRequest: func(req *http.Request, contentLength, code int, timeTaken time.Duration) {
 			assert.Equal(200, code)
-			assert.Equal("/bundle.js", path)
+			assert.Equal("/bundle.js", req.URL.Path)
 		},
 	})(func(c echo.Context) error {
 		return c.NoContent(404)

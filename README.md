@@ -34,8 +34,8 @@ The following example will provide `bundle.js` via a script tag like `<script sr
 				}).Msg("failed to build assets")
 			}
 		},
-        OnRequest: func(path string, contentLength, code int, timeTaken time.Duration) {
-            log.Info().Str("path", path).Int("code", code).Duration("timeTaken", timeTaken).Msg("asset served")
+        OnRequest: func(req *http.Request, contentLength, code int, timeTaken time.Duration) {
+            log.Info().Str("path", req.URL.Path).Int("code", code).Str("timeTaken", timeTaken.String()).Msg("asset served")
         },
 	}))
 ```
