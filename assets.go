@@ -22,6 +22,7 @@ type BundlerConfig struct {
 	Outfile         string
 	InlineSourcemap bool
 	Define          map[string]string
+	Format          api.Format
 	// This will be invoked for a build and can be used to check errors/warnings
 	OnBuild   FuncBuildResult
 	OnRequest FuncRequest
@@ -52,6 +53,7 @@ func BundlerWithConfig(cfg BundlerConfig) echo.MiddlewareFunc {
 		MinifySyntax:      true,
 		Sourcemap:         cfg.sourcemap(),
 		Define:            cfg.Define,
+		Format:            cfg.Format,
 	})
 
 	if cfg.OnBuild != nil {

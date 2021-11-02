@@ -34,6 +34,7 @@ func TestMiddleware(t *testing.T) {
 		OnRequest: func(req *http.Request, contentLength, code int, timeTaken time.Duration) {
 			assert.Equal(200, code)
 			assert.Equal("/bundle.js", req.URL.Path)
+			assert.Greater(contentLength, 0)
 		},
 	})(func(c echo.Context) error {
 		return c.NoContent(404)
