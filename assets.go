@@ -29,7 +29,10 @@ type BundlerConfig struct {
 }
 
 func (bc BundlerConfig) sourcemap() api.SourceMap {
-	return api.SourceMapInline
+	if bc.InlineSourcemap {
+		return api.SourceMapInline
+	}
+	return api.SourceMapNone
 }
 
 // BundlerWithConfig provide bundle files which are built on startup
