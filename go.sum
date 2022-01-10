@@ -1,8 +1,8 @@
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/evanw/esbuild v0.14.10 h1:+7c1VNndl7uLLxVEeRH4rOUz0Y+nrSw8xfmE9rGtrtw=
-github.com/evanw/esbuild v0.14.10/go.mod h1:GG+zjdi59yh3ehDn4ZWfPcATxjPDUH53iU4ZJbp7dkY=
+github.com/evanw/esbuild v0.14.11 h1:bw50N4v70Dqf/B6Wn+3BM6BVttz4A6tHn8m8Ydj9vxk=
+github.com/evanw/esbuild v0.14.11/go.mod h1:GG+zjdi59yh3ehDn4ZWfPcATxjPDUH53iU4ZJbp7dkY=
 github.com/golang-jwt/jwt v3.2.2+incompatible/go.mod h1:8pz2t5EyA70fFQQSrl6XZXzqecmYZeUEB8OUGHkxJ+I=
 github.com/labstack/echo/v4 v4.6.2 h1:lGl58LRvItiofInOQGHHLuH2TyGU3BAEgmEv55N65nM=
 github.com/labstack/echo/v4 v4.6.2/go.mod h1:Hk5OiHj0kDqmFq7aHe7eDqI7CUhuCrfpupQtLGGLm7A=
