@@ -1,4 +1,4 @@
-GOLANGCI_VERSION = 1.46.2
+GOLANGCI_VERSION = 1.50.1
 
 ci: lint test
 .PHONY: ci
