@@ -35,7 +35,7 @@ func (bc BundlerConfig) sourcemap() api.SourceMap {
 	return api.SourceMapNone
 }
 
-// BundlerWithConfig provide bundle files which are built on startup
+// BundlerWithConfig provide bundle files which are built on startup and stored in memory in the middleware
 func BundlerWithConfig(cfg BundlerConfig) echo.MiddlewareFunc {
 
 	if cfg.Outfile == "" {

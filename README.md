@@ -14,7 +14,7 @@ Given the single NPM module provided by esbuild my `node_modules` folder is also
 
 # Usage
 
-The following example will provide `bundle.js` via a script tag like `<script src="/bundle.js"></script>`.
+The following example uses the middleware to  provide `bundle.js` via a script tag like `<script src="/bundle.js"></script>`.
 
 ```go
 	e := echo.New()
@@ -38,6 +38,37 @@ The following example will provide `bundle.js` via a script tag like `<script sr
             log.Info().Str("path", req.URL.Path).Int("code", code).Str("timeTaken", timeTaken.String()).Msg("asset served")
         },
 	}))
+```
+
+The next example builds files and stores them locally in an assets directory, this is typically used to bundle one ore more entry points prior to startup of the application.
+
+```
+
+	// register the asset bundler which will build then serve any asset files
+	err := BuildWithConfig(BuildConfig{
+		EntryPoints: []api.EntryPoint{
+			{
+				InputPath:  "testassets/src/index.ts",
+				OutputPath: "bundle",
+			},
+		},
+		InlineSourcemap: true,
+		Define: map[string]string{
+			"process.env.NODE_ENV": `"production"`,
+		},
+		OnBuild: func(result api.BuildResult, timeTaken time.Duration) {
+			if len(result.Errors) > 0 {
+				log.Fatal().Fields(map[string]interface{}{
+					"errors": result.Errors,
+				}).Msg("failed to build assets")
+			}
+		},
+		Outdir: "public/js",
+	})
+    if err != nil {
+        ...
+    }
+
 ```
 
 
